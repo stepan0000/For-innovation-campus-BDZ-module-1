@@ -27,6 +27,23 @@ public class Main {
         return d;
     }
 
+    public  static int days_to_end_year(int day , int month , int year ) {
+        int d = 0;
+
+        if (year % 4 == 0) {
+            for (int i = month-1; i < 12; i++) {
+                d = d + Main.leap_year_days[i];
+            }
+        } else {
+            for (int i = month-1; i < 12; i++) {
+                d = d + Main.normal_year_days[i];
+            }
+        }
+
+        d = d - day;
+        return d;
+    }
+
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
@@ -43,16 +60,44 @@ public class Main {
 
         int today[] = {20, 10, 2024};
 
+        int day_of_week_today = 1;
+
+        String days_of_week [] = {"Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Suturday"};
+
         int days1 = days_from_start_year(today[0],today[1],today[2]);
+
+        int days3 = days_to_end_year(today[0],today[1],today[2]);
+
         int days2 = days_from_start_year(date[0],date[1],date[2]);
 
         int leap_years_between = ((today[2]-date[2]) / 4);
-        int normal_years = ((today[2]-date[2])-leap_years_between+1);
+        int normal_years = ((today[2]-date[2])-leap_years_between);
 
 
-        int days_between = normal_years*365+leap_years_between*366+days1 - days2;
+        int days_between = normal_years*365+leap_years_between*366+days1-days2;
 
-        System.out.print(days1 + " " + days2 + " " + leap_years_between + " " + normal_years + " " + days_between);
+        if ( (days_between <0) && (today[2]!=date[2] ) )
+        {days_between--;
+        }
+
+        int weeks = days_between / 7;
+        int shift = days_between % 7;
+
+        if (shift<0)
+        {shift = Math.abs(shift);}
+        else
+        {shift = 7-Math.abs(shift);}
+        System.out.println("days_between " + days_between + " weeks between " + weeks + " shift " + shift);
+
+
+
+
+
+
+
+
+        System.out.println(days_of_week[shift]);
+
 
     }
 }
