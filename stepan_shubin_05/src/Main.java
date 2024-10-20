@@ -60,7 +60,7 @@ public class Main {
 
         int today[] = {20, 10, 2024};
 
-        int day_of_week_today = 1;
+        int day_of_week_today = 0;
 
         String days_of_week [] = {"Sunday", "Monday", "Tuesday", "Wednesday","Thursday","Friday","Suturday"};
 
@@ -83,17 +83,14 @@ public class Main {
         int weeks = days_between / 7;
         int shift = days_between % 7;
 
-        if (shift<0)
-        {shift = Math.abs(shift);}
-        else
-        {shift = 7-Math.abs(shift);}
         System.out.println("days_between " + days_between + " weeks between " + weeks + " shift " + shift);
 
 
-
-
-
-
+        if (shift == 0) {shift  = day_of_week_today;}
+        if (shift<0)
+        {shift = day_of_week_today+Math.abs(shift);}
+        if (shift>0)
+        {shift = day_of_week_today+ 7-Math.abs(shift);}
 
 
         System.out.println(days_of_week[shift]);
